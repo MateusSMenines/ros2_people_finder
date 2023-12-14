@@ -35,4 +35,63 @@ Inicialmente o robô é gerado na posição onde é a recepção do hospital, se
 
 ### Deteção 
 
-É utilizado o pacote NOME DO PACOTE que utiliza o [Yolov5](https://github.com/ultralytics/yolov5) para detectar a pessoa no ambiente.
+É utilizado o [Yolov8](https://github.com/ultralytics/yolov5) para detectar a pessoa no ambiente. Neste caso, ao detectar, o processo vinculado a exploração é encerrado, assim, realizando um controle via a detecção da pessoa na imagem, fazendo o robô ir até a pessoa e depois voltando para a recepção do hospital.
+
+## Passo a passo como usar
+
+Primeiramente instalar o pacote do Nav2 e do turtlebot3 via terminal
+\
+Criando um workspace:
+```bash
+ mkdir -p ./ros2_ws/src
+```
+```bash
+cd -p ./ros2_ws/src
+```
+Clonando repositorio:
+
+```bash
+https://github.com/MateusSMenines/ros2_people_finder.git
+```
+
+Compilar os pacotes:
+```bash
+cd ..
+```
+```bash
+colcon build
+```
+
+Executar o seguintes comandos no terminal:
+
+```bash
+cd src/aws-robomaker-hospital-world/
+export GAZEBO_MODEL_PATH=`pwd`/models:`pwd`/fuel_models
+cd ../..
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+source /usr/share/gazebo/setup.bash
+source install/setup.bash
+```
+Executar o primeiro Launch:
+```bash
+ros2 launch aws_robomaker_hospital_world hospital_person_find.launch.py headless:=False slam:=True
+```
+
+Em outro terminal executar o segundo launch:
+```bash
+ros2 launch explore_lite explore.launch.py
+```
+No terceiro e ultimo terminal:
+```bash
+cd src/yolobot/yolobot_recognition/scripts/
+python3 ros_recognition_yolo.py 
+```bash
+
+
+
+
+
+
+
+
+
