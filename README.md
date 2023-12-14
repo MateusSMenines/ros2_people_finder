@@ -85,7 +85,7 @@ No terceiro e ultimo terminal:
 ```bash
 cd src/yolobot/yolobot_recognition/scripts/
 python3 ros_recognition_yolo.py 
-```bash
+```
 
 
 
